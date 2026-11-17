@@ -1,0 +1,47 @@
+baseURL = "{{BASE_URL}}"
+languageCode = "en-us"
+title = "{{BLOG_TITLE}}"
+theme = "PaperMod"
+
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  env = "production"
+  description = "Personal blog and technical notes by {{USERNAME}}."
+  author = "{{USERNAME}}"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+
+[params.homeInfoParams]
+  Title = "Hi, I'm {{USERNAME}} 👋"
+  Content = "Welcome to my digital garden and technical blog."
+
+[[menu.main]]
+  identifier = "posts"
+  name = "Posts"
+  url = "/posts/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "search"
+  name = "Search"
+  url = "/search/"
+  weight = 30
+
+{{PLUGIN_CONFIG}}

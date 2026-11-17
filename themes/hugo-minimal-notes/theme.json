@@ -1,0 +1,8 @@
+{
+  "id": "hugo-minimal-notes",
+  "name": "Hugo Minimal Notes",
+  "engine": "hugo",
+  "config_file": "hugo.toml",
+  "description": "Digital garden & Zettelkasten-friendly Hugo setup optimized for long-form writing.",
+  "author": "cmduyeen"
+}

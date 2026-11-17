@@ -1,0 +1,9 @@
+# Pro Blog Starter Kit
+
+> Open-source, Obsidian-inspired starter kit for launching a fast, free personal blog on GitHub Pages using Hugo or Jekyll, modular plugins (Giscus comments, SEO/GEO pack, Obsidian template, RSS-to-Profile sync, Math/Mermaid, GoatCounter), and a live Web Configurator.
+
+- [Live Web Configurator](https://cmduyeen.github.io/pro-blog-starter-kit/)
+- [Main Guide](README.md)
+- [Contributing Themes & Plugins](CONTRIBUTING.md)
+
+Use `python setup.py` for the interactive wizard, or `python setup.py --list` to inspect all themes and plugins.

@@ -1,0 +1,6 @@
+{
+  "id": "math-diagrams",
+  "name": "Math & Mermaid Diagrams",
+  "description": "Enables LaTeX math (KaTeX) and Mermaid flowcharts inside Markdown posts.",
+  "author": "cmduyeen"
+}

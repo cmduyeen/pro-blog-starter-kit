@@ -1,0 +1,9 @@
+{
+  "id": "goatcounter-analytics",
+  "name": "GoatCounter Analytics",
+  "description": "Free, privacy-friendly pageview analytics with zero cookies or GDPR banners.",
+  "author": "cmduyeen",
+  "defaults": {
+    "GOATCOUNTER_CODE": "your-site-code"
+  }
+}

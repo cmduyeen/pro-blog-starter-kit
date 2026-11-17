@@ -1,0 +1,7 @@
+# {{BLOG_TITLE}}
+
+> Personal blog and technical notes by {{USERNAME}}.
+
+- [Home]({{BASE_URL}})
+- [RSS Feed]({{BASE_URL}}index.xml)
+- [GitHub](https://github.com/{{USERNAME}})

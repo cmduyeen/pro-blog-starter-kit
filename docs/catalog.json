@@ -1,0 +1,115 @@
+{
+  "themes": [
+    {
+      "id": "hugo-minimal-notes",
+      "name": "Hugo Minimal Notes",
+      "engine": "hugo",
+      "config_file": "hugo.toml",
+      "description": "Digital garden & Zettelkasten-friendly Hugo setup optimized for long-form writing.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_template": "baseURL = \"{{BASE_URL}}\"\nlanguageCode = \"en-us\"\ntitle = \"{{BLOG_TITLE}}\"\ntheme = \"PaperMod\"\n\nenableRobotsTXT = true\n\n[params]\n  env = \"production\"\n  description = \"Digital garden, reading notes, and essays by {{USERNAME}}.\"\n  author = \"{{USERNAME}}\"\n  defaultTheme = \"light\"\n  disableSpecial1stPost = true\n  ShowReadingTime = true\n  ShowToc = true\n  TocOpen = true\n\n[[menu.main]]\n  identifier = \"notes\"\n  name = \"Notes\"\n  url = \"/posts/\"\n  weight = 10\n\n[[menu.main]]\n  identifier = \"tags\"\n  name = \"Topics\"\n  url = \"/tags/\"\n  weight = 20\n\n{{PLUGIN_CONFIG}}\n",
+      "workflow_content": "name: Deploy Hugo Notes to GitHub Pages\n\non:\n  push:\n    branches: [\"main\"]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          submodules: recursive\n      - uses: peaceiris/actions-hugo@v3\n        with:\n          hugo-version: \"0.138.0\"\n          extended: true\n      - uses: actions/configure-pages@v5\n      - run: hugo --gc --minify --baseURL \"${{ steps.pages.outputs.base_url }}/\"\n      - uses: actions/upload-pages-artifact@v3\n        with:\n          path: ./public\n\n  deploy:\n    environment:\n      name: github-pages\n      url: ${{ steps.deployment.outputs.page_url }}\n    runs-on: ubuntu-latest\n    needs: build\n    steps:\n      - id: deployment\n        uses: actions/deploy-pages@v4\n"
+    },
+    {
+      "id": "hugo-papermod",
+      "name": "Hugo + PaperMod",
+      "engine": "hugo",
+      "config_file": "hugo.toml",
+      "description": "Ultra-fast minimalist Hugo blog with PaperMod, built-in search, dark mode, and RSS.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_template": "baseURL = \"{{BASE_URL}}\"\nlanguageCode = \"en-us\"\ntitle = \"{{BLOG_TITLE}}\"\ntheme = \"PaperMod\"\n\nenableRobotsTXT = true\nbuildDrafts = false\nbuildFuture = false\nbuildExpired = false\n\n[pagination]\n  pagerSize = 10\n\n[params]\n  env = \"production\"\n  description = \"Personal blog and technical notes by {{USERNAME}}.\"\n  author = \"{{USERNAME}}\"\n  defaultTheme = \"auto\"\n  ShowReadingTime = true\n  ShowShareButtons = false\n  ShowPostNavLinks = true\n  ShowBreadCrumbs = true\n  ShowCodeCopyButtons = true\n\n[params.homeInfoParams]\n  Title = \"Hi, I'm {{USERNAME}} 👋\"\n  Content = \"Welcome to my digital garden and technical blog.\"\n\n[[menu.main]]\n  identifier = \"posts\"\n  name = \"Posts\"\n  url = \"/posts/\"\n  weight = 10\n\n[[menu.main]]\n  identifier = \"tags\"\n  name = \"Tags\"\n  url = \"/tags/\"\n  weight = 20\n\n[[menu.main]]\n  identifier = \"search\"\n  name = \"Search\"\n  url = \"/search/\"\n  weight = 30\n\n{{PLUGIN_CONFIG}}\n",
+      "workflow_content": "name: Deploy Hugo Blog to GitHub Pages\n\non:\n  push:\n    branches: [\"main\"]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\nconcurrency:\n  group: \"pages\"\n  cancel-in-progress: false\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    env:\n      HUGO_VERSION: 0.138.0\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v4\n        with:\n          submodules: recursive\n\n      - name: Setup Hugo\n        uses: peaceiris/actions-hugo@v3\n        with:\n          hugo-version: ${{ env.HUGO_VERSION }}\n          extended: true\n\n      - name: Setup Pages\n        uses: actions/configure-pages@v5\n\n      - name: Build with Hugo\n        run: hugo --gc --minify --baseURL \"${{ steps.pages.outputs.base_url }}/\"\n\n      - name: Upload artifact\n        uses: actions/upload-pages-artifact@v3\n        with:\n          path: ./public\n\n  deploy:\n    environment:\n      name: github-pages\n      url: ${{ steps.deployment.outputs.page_url }}\n    runs-on: ubuntu-latest\n    needs: build\n    steps:\n      - name: Deploy to GitHub Pages\n        id: deployment\n        uses: actions/deploy-pages@v4\n"
+    },
+    {
+      "id": "jekyll-chirpy",
+      "name": "Jekyll + Chirpy",
+      "engine": "jekyll",
+      "config_file": "_config.yml",
+      "description": "Feature-rich technical blog theme with sidebar TOC, dark mode, and categories.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_template": "theme: jekyll-theme-chirpy\nlang: en\ntimezone: Asia/Ho_Chi_Minh\n\ntitle: \"{{BLOG_TITLE}}\"\ntagline: \"Notes on software, automation, and open source\"\ndescription: \"Personal technical blog by {{USERNAME}}.\"\nurl: \"{{BASE_URL}}\"\nbaseurl: \"\"\n\ngithub:\n  username: \"{{USERNAME}}\"\n\nsocial:\n  name: \"{{USERNAME}}\"\n  links:\n    - \"https://github.com/{{USERNAME}}\"\n\npaginate: 10\npermalink: /posts/:title/\n\n{{PLUGIN_CONFIG}}\n",
+      "workflow_content": "name: Build and Deploy Jekyll Chirpy\n\non:\n  push:\n    branches: [\"main\"]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: ruby/setup-ruby@v1\n        with:\n          ruby-version: 3.3\n          bundler-cache: true\n      - uses: actions/configure-pages@v5\n      - run: bundle exec jekyll build -d \"_site\"\n        env:\n          JEKYLL_ENV: production\n      - uses: actions/upload-pages-artifact@v3\n        with:\n          path: ./_site\n\n  deploy:\n    environment:\n      name: github-pages\n      url: ${{ steps.deployment.outputs.page_url }}\n    runs-on: ubuntu-latest\n    needs: build\n    steps:\n      - id: deployment\n        uses: actions/deploy-pages@v4\n"
+    },
+    {
+      "id": "jekyll-minima",
+      "name": "Jekyll + Minima",
+      "engine": "jekyll",
+      "config_file": "_config.yml",
+      "description": "Zero-config official GitHub Pages theme—no extra dependencies required.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_template": "title: \"{{BLOG_TITLE}}\"\nauthor: \"{{USERNAME}}\"\ndescription: \"Personal blog and notes by {{USERNAME}}.\"\nurl: \"{{BASE_URL}}\"\nbaseurl: \"\"\ntheme: minima\n\nplugins:\n  - jekyll-feed\n  - jekyll-seo-tag\n\n{{PLUGIN_CONFIG}}\n",
+      "workflow_content": "name: Deploy Jekyll Minima to GitHub Pages\n\non:\n  push:\n    branches: [\"main\"]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/configure-pages@v5\n      - uses: actions/jekyll-build-pages@v1\n        with:\n          source: ./\n          destination: ./_site\n      - uses: actions/upload-pages-artifact@v3\n\n  deploy:\n    environment:\n      name: github-pages\n      url: ${{ steps.deployment.outputs.page_url }}\n    runs-on: ubuntu-latest\n    needs: build\n    steps:\n      - id: deployment\n        uses: actions/deploy-pages@v4\n"
+    }
+  ],
+  "plugins": [
+    {
+      "id": "giscus-comments",
+      "name": "Giscus Comments",
+      "description": "Free, ad-free blog comments powered by GitHub Discussions.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_snippets": {
+        "hugo": "[params]\n  comments = true\n\n[params.giscus]\n  repo = \"{{USERNAME}}/{{USERNAME}}.github.io\"\n  repoID = \"YOUR_GISCUS_REPO_ID\"\n  category = \"Announcements\"\n  categoryID = \"YOUR_GISCUS_CATEGORY_ID\"\n  mapping = \"pathname\"\n  theme = \"preferred_color_scheme\"",
+        "jekyll": "comments:\n  provider: giscus\n  giscus:\n    repo: \"{{USERNAME}}/{{USERNAME}}.github.io\"\n    repo_id: \"YOUR_GISCUS_REPO_ID\"\n    category: \"Announcements\"\n    category_id: \"YOUR_GISCUS_CATEGORY_ID\"\n    mapping: pathname\n    theme: preferred_color_scheme"
+      },
+      "snippet": "Enable GitHub Discussions on your `<username>.github.io` repository and get your `repo-id` and `category-id` from [giscus.app](https://giscus.app/)."
+    },
+    {
+      "id": "goatcounter-analytics",
+      "name": "GoatCounter Analytics",
+      "description": "Free, privacy-friendly pageview analytics with zero cookies or GDPR banners.",
+      "author": "cmduyeen",
+      "defaults": {
+        "GOATCOUNTER_CODE": "your-site-code"
+      },
+      "config_snippets": {
+        "hugo": "[params.analytics.goatcounter]\n  SiteID = \"{{GOATCOUNTER_CODE}}\""
+      },
+      "snippet": "Adds privacy-first [GoatCounter](https://www.goatcounter.com/) analytics configuration without tracking cookies."
+    },
+    {
+      "id": "math-diagrams",
+      "name": "Math & Mermaid Diagrams",
+      "description": "Enables LaTeX math (KaTeX) and Mermaid flowcharts inside Markdown posts.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_snippets": {
+        "hugo": "[params]\n  math = true"
+      },
+      "snippet": "Enables `math = true` in Hugo config for KaTeX equations and clean fenced code rendering for Mermaid diagrams."
+    },
+    {
+      "id": "obsidian-template",
+      "name": "Obsidian Publish Template",
+      "description": "Adds an Obsidian-ready frontmatter archetype for seamless Markdown publishing.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_snippets": {},
+      "snippet": "Adds `archetypes/obsidian-post.md` so notes written in Obsidian publish cleanly to Hugo or Jekyll without manual YAML edits."
+    },
+    {
+      "id": "rss-profile-sync",
+      "name": "RSS to GitHub Profile",
+      "description": "Outputs clean RSS feeds ready to auto-sync into your GitHub Profile README.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_snippets": {
+        "hugo": "[outputs]\n  home = [\"HTML\", \"RSS\", \"JSON\"]"
+      },
+      "snippet": "Configures Hugo/Jekyll RSS output (`index.xml` / `feed.xml`) so `pro-github-starter-kit`'s `blog-rss` plugin can display your latest posts automatically."
+    },
+    {
+      "id": "seo-geo-pack",
+      "name": "SEO & GEO Pack",
+      "description": "Adds robots.txt, llms.txt, and clean RSS/Sitemap defaults for Google & AI Search.",
+      "author": "cmduyeen",
+      "defaults": {},
+      "config_snippets": {},
+      "snippet": "Adds `static/robots.txt` and `static/llms.txt` so Google Search and AI search engines index your blog cleanly."
+    }
+  ]
+}

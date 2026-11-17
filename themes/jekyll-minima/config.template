@@ -1,0 +1,12 @@
+title: "{{BLOG_TITLE}}"
+author: "{{USERNAME}}"
+description: "Personal blog and notes by {{USERNAME}}."
+url: "{{BASE_URL}}"
+baseurl: ""
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+{{PLUGIN_CONFIG}}

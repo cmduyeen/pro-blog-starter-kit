@@ -1,0 +1,30 @@
+baseURL = "{{BASE_URL}}"
+languageCode = "en-us"
+title = "{{BLOG_TITLE}}"
+theme = "PaperMod"
+
+enableRobotsTXT = true
+
+[params]
+  env = "production"
+  description = "Digital garden, reading notes, and essays by {{USERNAME}}."
+  author = "{{USERNAME}}"
+  defaultTheme = "light"
+  disableSpecial1stPost = true
+  ShowReadingTime = true
+  ShowToc = true
+  TocOpen = true
+
+[[menu.main]]
+  identifier = "notes"
+  name = "Notes"
+  url = "/posts/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "tags"
+  name = "Topics"
+  url = "/tags/"
+  weight = 20
+
+{{PLUGIN_CONFIG}}

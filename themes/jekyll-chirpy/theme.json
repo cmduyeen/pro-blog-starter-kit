@@ -1,0 +1,8 @@
+{
+  "id": "jekyll-chirpy",
+  "name": "Jekyll + Chirpy",
+  "engine": "jekyll",
+  "config_file": "_config.yml",
+  "description": "Feature-rich technical blog theme with sidebar TOC, dark mode, and categories.",
+  "author": "cmduyeen"
+}

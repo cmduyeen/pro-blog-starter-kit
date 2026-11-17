@@ -1,0 +1,6 @@
+{
+  "id": "rss-profile-sync",
+  "name": "RSS to GitHub Profile",
+  "description": "Outputs clean RSS feeds ready to auto-sync into your GitHub Profile README.",
+  "author": "cmduyeen"
+}

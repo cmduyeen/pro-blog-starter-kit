@@ -1,0 +1,8 @@
+{
+  "id": "jekyll-minima",
+  "name": "Jekyll + Minima",
+  "engine": "jekyll",
+  "config_file": "_config.yml",
+  "description": "Zero-config official GitHub Pages theme—no extra dependencies required.",
+  "author": "cmduyeen"
+}

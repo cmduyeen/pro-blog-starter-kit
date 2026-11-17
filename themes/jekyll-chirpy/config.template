@@ -1,0 +1,22 @@
+theme: jekyll-theme-chirpy
+lang: en
+timezone: Asia/Ho_Chi_Minh
+
+title: "{{BLOG_TITLE}}"
+tagline: "Notes on software, automation, and open source"
+description: "Personal technical blog by {{USERNAME}}."
+url: "{{BASE_URL}}"
+baseurl: ""
+
+github:
+  username: "{{USERNAME}}"
+
+social:
+  name: "{{USERNAME}}"
+  links:
+    - "https://github.com/{{USERNAME}}"
+
+paginate: 10
+permalink: /posts/:title/
+
+{{PLUGIN_CONFIG}}

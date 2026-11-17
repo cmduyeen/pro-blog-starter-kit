@@ -1,0 +1,8 @@
+{
+  "id": "hugo-papermod",
+  "name": "Hugo + PaperMod",
+  "engine": "hugo",
+  "config_file": "hugo.toml",
+  "description": "Ultra-fast minimalist Hugo blog with PaperMod, built-in search, dark mode, and RSS.",
+  "author": "cmduyeen"
+}

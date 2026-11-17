@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" fill="none">
+  <rect width="320" height="180" rx="12" fill="#1D1E20" stroke="#2E2E32" stroke-width="2"/>
+  <text x="24" y="32" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="13" font-weight="700">PaperMod Blog</text>
+  <rect x="200" y="23" width="30" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="238" y="23" width="26" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="272" y="23" width="24" height="6" rx="3" fill="#9CA3AF"/>
+  <rect x="24" y="50" width="272" height="44" rx="8" fill="#27272A"/>
+  <text x="36" y="69" fill="#F4F4F5" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Hi, I'm {{USERNAME}} 👋</text>
+  <rect x="36" y="78" width="160" height="6" rx="3" fill="#A1A1AA"/>
+  <rect x="24" y="106" width="272" height="28" rx="6" fill="#27272A"/>
+  <rect x="36" y="116" width="140" height="7" rx="3.5" fill="#E4E4E7"/>
+  <rect x="24" y="142" width="272" height="26" rx="6" fill="#27272A"/>
+  <rect x="36" y="151" width="120" height="7" rx="3.5" fill="#A1A1AA"/>
+</svg>
